@@ -30,6 +30,9 @@ public class ProductPriceDao {
                 ResultSet chkRslt = stmt.executeQuery(chkSql);
                 if (!chkRslt.next()) {
                     stmt.executeUpdate(insSql);
+                    System.out.print("INS \t");
+                    System.out.print(item.getProductId() + "\t");
+                    System.out.println(item.getPrice());
                 }
             }
         } catch (SQLException e) {

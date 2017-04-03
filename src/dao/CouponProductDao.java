@@ -22,41 +22,48 @@ public class CouponProductDao {
             Statement stmt = conn.createStatement();
 
             for (CouponProduct item : items) {
-                insSql = "insert into t_coupon_product(coupon_id, product_id, del_flg) "
-                        + "values('" + item.getCouponId() + "', '" + item.getProductId() + "', '"
-                        + item.getDelFlg() + "')";
+                insSql = "insert into t_coupon_product(coupon_id, product_id, del_flg) " + "values('"
+                        + item.getCouponId() + "', '" + item.getProductId() + "', '" + item.getDelFlg() + "')";
 
-                chkSql = "select coupon_id from t_coupon_product where product_id ='"
-                        + item.getProductId() + "' and coupon_id = '" + item.getCouponId() + "'";
+                chkSql = "select coupon_id from t_coupon_product where product_id ='" + item.getProductId()
+                        + "' and coupon_id = '" + item.getCouponId() + "'";
 
-                updSql = "update t_coupon_product set del_flg = '0' where product_id ='"
-                        + item.getProductId() + "' and coupon_id = '" + item.getCouponId() + "'";
+                updSql = "update t_coupon_product set del_flg = '0' where product_id ='" + item.getProductId()
+                        + "' and coupon_id = '" + item.getCouponId() + "'";
 
                 ResultSet chkRslt = stmt.executeQuery(chkSql);
                 if (!chkRslt.next()) {
                     stmt.executeUpdate(insSql);
-                } else {
+                    System.out.print("INS \t");
+                    System.out.print(item.getCouponId() + "\t");
+                    System.out.println(item.getProductId());
+                }
+                else {
                     stmt.executeUpdate(updSql);
+                    System.out.print("UPD \t");
+                    System.out.print(item.getCouponId() + "\t");
+                    System.out.println(item.getProductId());
                 }
             }
 
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
             e.printStackTrace();
-        } finally {
+        }
+        finally {
             conn.close();
         }
     }
 
-    public static void insert(CouponProduct product) throws Exception {
+    public static void insert(CouponProduct item) throws Exception {
         String insSql = "insert into t_coupon_product(coupon_id, product_id, del_flg) " + "values('"
-                + product.getCouponId() + "', '" + product.getProductId() + "', '"
-                + product.getDelFlg() + "')";
+                + item.getCouponId() + "', '" + item.getProductId() + "', '" + item.getDelFlg() + "')";
 
-        String chkSql = "select coupon_id from t_coupon_product where product_id ='"
-                + product.getProductId() + "' and coupon_id = '" + product.getCouponId() + "'";
+        String chkSql = "select coupon_id from t_coupon_product where product_id ='" + item.getProductId()
+                + "' and coupon_id = '" + item.getCouponId() + "'";
 
-        String updSql = "update t_coupon_product set del_flg = '0' where product_id ='"
-                + product.getProductId() + "' and coupon_id = '" + product.getCouponId() + "'";
+        String updSql = "update t_coupon_product set del_flg = '0' where product_id ='" + item.getProductId()
+                + "' and coupon_id = '" + item.getCouponId() + "'";
 
         Connection conn = MysqlServer.getConnection();
 
@@ -66,30 +73,41 @@ public class CouponProductDao {
             ResultSet chkRslt = stmt.executeQuery(chkSql);
             if (!chkRslt.next()) {
                 stmt.executeUpdate(insSql);
-            } else {
+                System.out.print("INS \t");
+                System.out.print(item.getCouponId() + "\t");
+                System.out.println(item.getProductId());
+            }
+            else {
                 stmt.executeUpdate(updSql);
+                System.out.print("UPD \t");
+                System.out.print(item.getCouponId() + "\t");
+                System.out.println(item.getProductId());
             }
 
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
             e.printStackTrace();
-        } finally {
+        }
+        finally {
             conn.close();
         }
     }
 
-    public static void delCouponProducts(String couponId) throws SQLException{
-        String updSql = "Update t_coupon_product set del_flg = '1' where coupon_id = '"
-                + couponId + "' and del_flg = '0'";
-        
+    public static void delCouponProducts(String couponId) throws SQLException {
+        String updSql = "Update t_coupon_product set del_flg = '1' where coupon_id = '" + couponId
+                + "' and del_flg = '0'";
+
         Connection conn = MysqlServer.getConnection();
 
         try {
             // Statement里面带有很多方法，比如executeUpdate可以实现插入，更新和删除等
             Statement stmt = conn.createStatement();
             stmt.executeUpdate(updSql);
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
             e.printStackTrace();
-        } finally {
+        }
+        finally {
             conn.close();
         }
     }
