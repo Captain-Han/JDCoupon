@@ -3,10 +3,13 @@ package dao;
 import model.ProductPrice;
 import unit.MysqlServer;
 
+import static unit.DataUnit.intToStr;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductPriceDao {
@@ -80,6 +83,34 @@ public class ProductPriceDao {
             e.printStackTrace();
         } finally {
             conn.close();
+        }
+    }
+
+    @SuppressWarnings("finally")
+    public static List<String> searchProducts() throws Exception {
+        System.out.println("----start : searchProducts-----");
+
+        Connection conn = MysqlServer.getConnection();
+        List<String> productL = new ArrayList<String>();
+        String srchSql = "select product_id from m_product_price where del_flg = '0'";
+
+        try {
+            // Statement里面带有很多方法，比如executeUpdate可以实现插入，更新和删除等
+            Statement stmt = conn.createStatement();
+            ResultSet chkRslt = stmt.executeQuery(srchSql);
+            while (chkRslt.next()) {
+                productL.add(chkRslt.getString("product_id"));
+            };
+
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
+        }
+        finally {
+            conn.close();
+            System.out.println("----end   : searchCoupon--size :" + intToStr(productL.size()));
+            return productL;
         }
     }
 }

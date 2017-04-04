@@ -110,7 +110,6 @@ public class JsoupTest {
     }
 
     private static boolean getCoupons(int pageId) throws Exception {
-        System.out.println("-------------------------------");
         System.out.println("----Coupon Page : " + intToStr(pageId, 3) + "----------");
         Document doc;
         boolean stopFlg = true;
