@@ -10,8 +10,8 @@ public class MysqlServer {
         // MySQL的JDBC URL编写方式：jdbc:mysql://主机名称：连接端口/数据库的名称?参数=值
         // 避免中文乱码要指定useUnicode和characterEncoding
         // 执行数据库操作之前要在数据库管理系统上创建一个数据库，名字自己定，
-        String url = "jdbc:mysql://localhost:3306/JD?"
-                + "user=root&password=rontech&useUnicode=true&characterEncoding=UTF8";
+        String url = "jdbc:mysql://localhost:3307/JD?"
+                + "user=root&password=901030&useUnicode=true&characterEncoding=UTF8";
  
         try {
             // 之所以要使用下面这条语句，是因为要使用MySQL的驱动，所以我们要把它驱动起来，
